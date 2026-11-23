@@ -199,7 +199,7 @@ interactions:
         data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":": \"Mexi"}            }
 
         event: content_block_delta
-        data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":"co City"}  }
+        data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":"co Town"}  }
 
         event: content_block_delta
         data: {"type":"content_block_delta","index":0,"delta":{"type":"input_json_delta","partial_json":"\""}       }
