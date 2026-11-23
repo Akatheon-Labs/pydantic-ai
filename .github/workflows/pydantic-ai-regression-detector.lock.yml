@@ -82,21 +82,7 @@
 
 name: "Pydantic AI Regression Detector"
 on:
-  schedule:
-    - cron: "53 6 * * 3"  # Friendly format: weekly on wednesday (scattered)
-  workflow_dispatch:
-    inputs:
-      aw_context:
-        default: ""
-        description: "Agent caller context (Reserved for Agentic Workflows)."
-        required: false
-        type: string
-      recovery_issue:
-        description: Open workflow incident to verify with this run
-        required: false
-        type: string
-
-# Jobs receive only their explicitly declared permissions.
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 permissions: {}
 
 concurrency:

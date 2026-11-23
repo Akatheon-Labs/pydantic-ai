@@ -2,22 +2,7 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - main
-    tags:
-      - "**"
-      # Moved by `clai2-bleeding.yml` for every CLAI change on `main`; not a release to build or publish.
-      - "!clai2-bleeding"
-  pull_request: {}
-  # The merge queue: a pull request reaches `main` only through a merge group that passed this
-  # workflow's full test matrix. A `pull_request` run skips the matrix legs that only repeat
-  # another leg's checks (see `pull_request` in the test jobs' matrices); every leg that
-  # collects coverage or carries a check no other leg runs stays on it, so coverage and the
-  # coverage gate come out identical under both events. `.github/scripts/test_ci_matrix.py`
-  # checks that.
-  merge_group:
-    types: [checks_requested]
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 
 env:
   COLUMNS: 150

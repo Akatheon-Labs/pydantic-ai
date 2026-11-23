@@ -1,12 +1,7 @@
 name: CLAI 2 web
 
 on:
-  workflow_call:
-    inputs:
-      npm-cache:
-        description: Whether the web UI build may restore npm downloads. Pass `false` when a caller publishes this build.
-        type: string
-        default: "true"
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 
 permissions:
   contents: read

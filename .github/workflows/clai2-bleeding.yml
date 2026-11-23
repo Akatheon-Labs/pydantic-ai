@@ -12,18 +12,7 @@ name: CLAI2 bleeding
 # `src/pydantic_clai2/docs/reference.md`).
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - src/pydantic_clai2/**
-      - src/pydantic_ai_harness/**
-      - pydantic_ai_slim/**
-      - pydantic_graph/**
-      - .github/workflows/clai2-bleeding.yml
-      - .github/workflows/clai2-web.yml
-      - .github/actions/build-clai2-web-ui/**
-  workflow_dispatch: {}
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 
 permissions:
   contents: read

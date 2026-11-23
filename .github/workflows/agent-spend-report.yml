@@ -11,10 +11,7 @@ name: Agent Spend Report
 # `agent` artifact each gh-aw run already uploads.
 
 on:
-  schedule:
-    # Mondays 09:00 UTC, before the weekly sweeps fan out.
-    - cron: '0 9 * * 1'
-  workflow_dispatch: {}
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 
 permissions: {}
 

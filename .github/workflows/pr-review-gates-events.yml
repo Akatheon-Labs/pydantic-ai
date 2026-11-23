@@ -4,12 +4,7 @@ run-name: 'PR Review Gates Events #${{ github.event.pull_request.number }} @ ${{
 # Fork PR and review events have read-only tokens. This observer supplies only a wake-up;
 # PR Review Gates evaluates live API metadata using default-branch code and its own token.
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, edited, labeled, unlabeled]
-  pull_request_review:
-    types: [submitted, edited, dismissed]
-  pull_request_review_comment:
-    types: [created, edited, deleted]
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 
 permissions: {}
 

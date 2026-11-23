@@ -7,11 +7,7 @@ name: CI Duration Report
 # out or executes PR head code.
 
 on:
-  # zizmor: ignore[dangerous-triggers] -- pull_request_target is required so fork PRs can
-  # receive comments from a base-repo token. The workflow is gated on a maintainer-applied
-  # label and only reads GitHub Actions metadata.
-  pull_request_target:
-    types: [labeled]
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 
 permissions: {}
 

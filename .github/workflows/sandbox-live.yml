@@ -16,25 +16,7 @@ name: Sandbox live tests
 # untrusted code that can write to that cache.
 
 on:
-  workflow_call:
-    inputs:
-      providers:
-        description: "JSON list of provider names, or `all` for every provider in the tree."
-        type: string
-        required: true
-    secrets:
-      MODAL_TOKEN_ID:
-        required: false
-      MODAL_TOKEN_SECRET:
-        required: false
-      E2B_API_KEY:
-        required: false
-      SPRITE_TOKEN:
-        required: false
-      DAYTONA_API_KEY:
-        required: false
-      BOXD_API_KEY:
-        required: false
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 
 permissions:
   contents: read

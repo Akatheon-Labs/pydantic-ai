@@ -2,9 +2,7 @@
 name: PR Guard
 
 on:
-  # zizmor: ignore[dangerous-triggers] -- pull_request_target is needed to close duplicate/unlinked PRs and manage issues; no fork code is checked out
-  pull_request_target:
-    types: [opened, reopened, ready_for_review, edited]
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 
 permissions: {}
 

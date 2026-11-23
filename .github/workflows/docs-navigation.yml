@@ -9,11 +9,7 @@ name: Docs Navigation Check
 # after dispatch; re-add it after source changes.
 
 on:
-  # zizmor: ignore[dangerous-triggers] -- pull_request_target is required so fork PRs can
-  # access the DOCS_APP credentials. The dispatch explicitly verifies that the label
-  # actor has write access, and this workflow does not check out or execute PR code.
-  pull_request_target:
-    types: [labeled]
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 
 permissions: {}
 

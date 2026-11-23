@@ -13,20 +13,7 @@ name: Protect .github
 # PR and exits 0 when nothing protected changed.
 
 on:
-  # zizmor: ignore[dangerous-triggers] -- pull_request_target is required so the guard runs
-  # from the base repository's default branch (a fork can't disable it by editing this file)
-  # and can comment on fork PRs. Nothing here checks out or executes PR code: it reads PR
-  # metadata via the API.
-  pull_request_target:
-    # `edited` is in the list because it is the only event fired when a PR's BASE branch
-    # changes, and the verdict is a diff against that base: without it a green check
-    # survives a base switch that changes which files the PR actually touches.
-    types: [opened, synchronize, reopened, edited]
-  # A required check has to report on the merge group's commit, or the queue stalls. The
-  # verdict is the PR's own diff and author, settled on its head before it could be
-  # enqueued, so the guard passes the merge group without judging it again.
-  merge_group:
-    types: [checks_requested]
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 
 permissions: {}
 

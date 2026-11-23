@@ -2,9 +2,7 @@
 name: PR Bots
 
 on:
-  # zizmor: ignore[dangerous-triggers] -- pull_request_target is needed for fork PRs; inputs are validated before use
-  pull_request_target:
-    types: [opened, synchronize, edited, labeled, unlabeled]
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 
 permissions: {}
 

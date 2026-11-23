@@ -8,15 +8,7 @@ name: PR Gates
 # every listed PR event runs the compatibility gate.
 
 on:
-  pull_request:
-    # `labeled` and `unlabeled` change the verdict. `edited` is the only event fired when the base
-    # branch changes, which changes the diff the gate judges.
-    types: [opened, synchronize, reopened, edited, labeled, unlabeled]
-  # A required check has to report on the merge group's commit, or the queue stalls. The gate
-  # judges the PR's own diff and labels, settled on its head before it could be enqueued, so it
-  # skips here, and a job skipped by `if:` reports success.
-  merge_group:
-    types: [checks_requested]
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 
 permissions: {}
 

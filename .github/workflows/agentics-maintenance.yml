@@ -38,54 +38,7 @@
 name: Agentic Maintenance
 
 on:
-  schedule:
-    - cron: "37 0 * * *"  # Daily (based on minimum expires: 7 days)
-  workflow_dispatch:
-    inputs:
-      operation:
-        description: 'Optional maintenance operation to run'
-        required: false
-        type: choice
-        default: 'none'
-        options:
-          - 'none'
-          - 'disable'
-          - 'enable'
-          - 'update'
-          - 'upgrade'
-          - 'safe_outputs'
-          - 'create_labels'
-          - 'activity_report'
-          - 'close_agentic_workflows_issues'
-          - 'update_pull_request_branches'
-          - 'validate'
-          - 'forecast'
-      run_url:
-        description: 'Run URL or run ID to replay safe outputs from (e.g. https://github.com/owner/repo/actions/runs/12345 or 12345). Required when operation is safe_outputs.'
-        required: false
-        type: string
-        default: ''
-  workflow_call:
-    inputs:
-      operation:
-        description: 'Optional maintenance operation to run (disable, enable, update, upgrade, safe_outputs, create_labels, activity_report, close_agentic_workflows_issues, update_pull_request_branches, validate, forecast)'
-        required: false
-        type: string
-        default: ''
-      run_url:
-        description: 'Run URL or run ID to replay safe outputs from (e.g. https://github.com/owner/repo/actions/runs/12345 or 12345). Required when operation is safe_outputs.'
-        required: false
-        type: string
-        default: ''
-    outputs:
-      operation_completed:
-        description: 'The maintenance operation that was completed (empty when none ran or a scheduled job ran)'
-        value: ${{ jobs.run_operation.outputs.operation || (inputs.operation == 'safe_outputs' || inputs.operation == 'create_labels' || inputs.operation == 'activity_report' || inputs.operation == 'close_agentic_workflows_issues' || inputs.operation == 'update_pull_request_branches' || inputs.operation == 'validate' || inputs.operation == 'forecast') && inputs.operation || '' }}
-      applied_run_url:
-        description: 'The run URL that safe outputs were applied from'
-        value: ${{ jobs.apply_safe_outputs.outputs.run_url }}
-
-# Jobs request only the permissions needed for their individual maintenance operations.
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 permissions: {}
 
 # Serialize maintenance runs to avoid overlapping writes to repository resources.

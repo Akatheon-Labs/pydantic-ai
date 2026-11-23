@@ -2,7 +2,7 @@
 name: Manual Docs Deploy
 
 on:
-  workflow_dispatch:
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 
 permissions:
   contents: read

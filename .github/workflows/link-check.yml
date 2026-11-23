@@ -2,9 +2,7 @@
 name: Link check
 
 on:
-  schedule:
-    - cron: '0 0 * * 1' # weekly on Monday
-  workflow_dispatch:
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 
 permissions: {}
 

@@ -6,11 +6,7 @@ name: PR Review Checks
 # trust boundaries, the run label and the acceptance label.
 
 on:
-  pull_request_target: # zizmor: ignore[dangerous-triggers] -- runs only default-branch code; the head is read as data by a model without write tools
-    types: [opened, reopened, synchronize, edited, labeled]
-  # Every head is reviewed before admission; report success on the merge-group SHA.
-  merge_group:
-    types: [checks_requested]
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 
 permissions: {}
 

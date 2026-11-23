@@ -11,8 +11,7 @@ name: Latest Versions Canary Nightly
 # result is on its own page.
 
 on:
-  schedule:
-    - cron: '23 7 * * *'
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 
 permissions:
   contents: read

@@ -10,14 +10,7 @@ name: Sandbox live nightly
 # out another ref from a run on `main` would let untested code write to `main`'s cache.
 
 on:
-  schedule:
-    - cron: "17 4 * * *"
-  workflow_dispatch:
-    inputs:
-      providers:
-        description: 'JSON list of providers, for example ["modal"], or `all`.'
-        type: string
-        default: all
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 
 permissions:
   contents: read

@@ -20,14 +20,7 @@ name: CLAI 2 web bundle
 # would not keep a dependency away from the token.
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - src/pydantic_clai2/web-ui/**
-      - .github/actions/build-clai2-web-ui/**
-      - .github/workflows/clai2-web-bundle.yml
-  workflow_dispatch: {}
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 
 permissions: {}
 

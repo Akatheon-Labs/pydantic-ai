@@ -2,31 +2,7 @@
 name: Agent Provider Health
 
 on:
-  # zizmor: ignore[dangerous-triggers] -- workflow_run only handles allowlisted agent artifacts;
-  # it checks out the default-branch controller, parses artifacts as data, and receives no Z.AI key.
-  workflow_run:
-    workflows:
-      - Pydantic AI Bug Hunter
-      - Pydantic AI Community Demand
-      - Pydantic AI Docs Drift
-      - Pydantic AI Feature Digest
-      - CI Review
-      - Pydantic AI Provider Mapping Sweep
-      - Pydantic AI Provider Parity Explore
-      - Pydantic AI Regression Detector
-      - Pydantic AI Round-Trip Sweep
-      - Pydantic AI Stale Issues Finder
-      - Pydantic AI Streaming Resilience Sweep
-      - Pydantic AI Weekly Agent Instructions Audit
-    types: [completed]
-  schedule:
-    - cron: '13 * * * *'
-  workflow_dispatch:
-    inputs:
-      recover_issue:
-        description: Incident issue number to verify before recovery
-        required: true
-        type: number
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 
 permissions: {}
 

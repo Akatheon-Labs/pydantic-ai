@@ -2,10 +2,7 @@
 name: Gateway Model Health
 
 on:
-  schedule:
-    # Run weekly on Monday at 10:00 UTC.
-    - cron: '0 10 * * 1'
-  workflow_dispatch: {}
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 
 env:
   COLUMNS: 150

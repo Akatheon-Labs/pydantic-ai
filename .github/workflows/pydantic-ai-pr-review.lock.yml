@@ -80,37 +80,7 @@
 
 name: "CI Review"
 on:
-  # bots: # Bots processed as bot check in pre-activation job
-  # - pydantic-docs # Bots processed as bot check in pre-activation job
-  pull_request:
-    types:
-      - labeled
-  pull_request_review:
-    types:
-      - submitted
-  # roles: # Roles processed as role check in pre-activation job
-  # - admin # Roles processed as role check in pre-activation job
-  # - maintainer # Roles processed as role check in pre-activation job
-  # - write # Roles processed as role check in pre-activation job
-  workflow_dispatch:
-    inputs:
-      aw_context:
-        default: ""
-        description: "Agent caller context (Reserved for Agentic Workflows)."
-        required: false
-        type: string
-      recovery_issue:
-        description: Open workflow incident to verify with this run
-        required: false
-        type: string
-  workflow_run:
-    # zizmor: ignore[dangerous-triggers] - workflow_run trigger is secured with role and fork validation
-    types:
-      - completed
-    workflows:
-      - CI
-
-# Jobs receive only their explicitly declared permissions.
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 permissions: {}
 
 concurrency:

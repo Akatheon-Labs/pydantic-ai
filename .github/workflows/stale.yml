@@ -1,8 +1,7 @@
 # description: Marks and later closes inactive issues labeled question or more info, and pull requests labeled awaiting author revision.
 name: 'Close stale issues and PRs'
 on:
-  schedule:
-    - cron: '0 14 * * *'
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 
 permissions: {}
 

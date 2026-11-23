@@ -44,14 +44,7 @@ name: Latest Versions Canary
 # `contents: read`, and a called workflow cannot request more than its caller grants.
 
 on:
-  workflow_dispatch:
-  # Self-test: the PR that adds or edits the canary runs it once as a PR check, so a
-  # change to it is proven before merge rather than on the next scheduled run.
-  pull_request:
-    paths:
-      - '.github/workflows/latest-versions-canary.yml'
-  # `ci.yml` calls this on `v*` tag pushes as an advisory check — see the note above.
-  workflow_call:
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 
 permissions:
   contents: read

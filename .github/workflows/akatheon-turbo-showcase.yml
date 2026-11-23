@@ -1,0 +1,99 @@
+# Akatheon Turbo showroom: a public fork of PydanticAI. On every pull request the full suite and Akatheon Turbo run side
+# by side, and each job writes its table to the run's summary.
+#   push to akatheon-showcase: certificates for the new commit (the first time every test is recorded; after that only
+#                              what the merged change touched), kept in GitHub's cache
+#   pull_request:              full (the suite as CI runs it today) | shadow (everything runs; the summary shows what
+#                              Akatheon Turbo would have skipped, and whether that would have missed a failure) |
+#                              enforce (only the selected tests run; the job's result is theirs), each with its wall clock
+# The suites run offline: no model API key is set. Each Akatheon Turbo job uploads its signed receipt.
+name: akatheon-turbo-showcase
+on:
+  push:
+    branches: [akatheon-showcase]
+  pull_request:
+    branches: [akatheon-showcase]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: akatheon-${{ github.ref }}
+  cancel-in-progress: true
+env:
+  # as upstream's test lanes run it: the blocking-call detector runs on one lane of theirs, off here (it reports
+  # file scans that happen to come first inside an event loop, depending on test order)
+  BLOCKBUSTER_ENABLED: "false"
+  TEST_CMD: .venv/bin/python -m pytest -n 4 --dist=loadgroup -p no:cacheprovider tests/test_*.py tests/models tests/providers tests/evals tests/profiles tests/graph
+jobs:
+  certificates:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 300  # the first recording of 24,000 tests on a 4-CPU runner; later pushes refresh in minutes
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Install (the project's own command at the showcase base, on Python 3.14; its venv first on PATH, as uv run puts it)
+        run: uv sync --frozen --python 3.14 --all-extras --no-extra mcp-tasks --all-packages --group lint && echo "$PWD/.venv/bin" >> "$GITHUB_PATH"
+      - uses: akatheon/turbo@v1
+        with:
+          mode: refresh
+          command: ${{ env.TEST_CMD }}
+          # recorded whole, each test given its file's union: test_examples.py type-checks every docs example with
+          # pyright once per session (a fork per test would run pyright 1,500 times); the batch files hang when forked
+          file-mode: |
+            tests/test_examples.py
+            tests/models/test_openai_batch.py
+            tests/models/test_batch_resume.py
+            tests/models/test_openai_batch_vcr.py
+  full:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Install (the project's own command at the showcase base, on Python 3.14; its venv first on PATH, as uv run puts it)
+        run: uv sync --frozen --python 3.14 --all-extras --no-extra mcp-tasks --all-packages --group lint && echo "$PWD/.venv/bin" >> "$GITHUB_PATH"
+      - name: The full suite (as CI runs it today)
+        run: |
+          s=$(date +%s)
+          set +e; $TEST_CMD; rc=$?; set -e
+          { echo "### full suite"; echo; echo "| wall clock | exit |"; echo "|---|---|"; echo "| $(( $(date +%s) - s )) s | $rc |"; } >> "$GITHUB_STEP_SUMMARY"
+          exit $rc
+  shadow:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Install (the project's own command at the showcase base, on Python 3.14; its venv first on PATH, as uv run puts it)
+        run: uv sync --frozen --python 3.14 --all-extras --no-extra mcp-tasks --all-packages --group lint && echo "$PWD/.venv/bin" >> "$GITHUB_PATH"
+      - uses: akatheon/turbo@v1
+        with:
+          mode: shadow
+          command: ${{ env.TEST_CMD }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: receipt-shadow
+          path: .akatheon-ci/receipt/
+          include-hidden-files: true  # the receipt sits under .akatheon-ci/; the signing key is outside it
+  enforce:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - name: Install (the project's own command at the showcase base, on Python 3.14; its venv first on PATH, as uv run puts it)
+        run: uv sync --frozen --python 3.14 --all-extras --no-extra mcp-tasks --all-packages --group lint && echo "$PWD/.venv/bin" >> "$GITHUB_PATH"
+      - uses: akatheon/turbo@v1
+        with:
+          mode: enforce
+          command: ${{ env.TEST_CMD }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: receipt-enforce
+          path: .akatheon-ci/receipt/
+          include-hidden-files: true  # the receipt sits under .akatheon-ci/; the signing key is outside it

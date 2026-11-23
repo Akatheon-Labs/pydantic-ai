@@ -82,21 +82,7 @@
 
 name: "Pydantic AI Provider Parity Explore"
 on:
-  schedule:
-    - cron: "5 13 * * 2"  # Friendly format: weekly on tuesday (scattered)
-  workflow_dispatch:
-    inputs:
-      aw_context:
-        default: ""
-        description: "Agent caller context (Reserved for Agentic Workflows)."
-        required: false
-        type: string
-      recovery_issue:
-        description: Open workflow incident to verify with this run
-        required: false
-        type: string
-
-# Jobs receive only their explicitly declared permissions.
+  workflow_dispatch: {}  # off on this showcase fork: upstream's CI runs upstream
 permissions: {}
 
 concurrency:
